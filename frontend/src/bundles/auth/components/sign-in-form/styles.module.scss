@@ -1,0 +1,91 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 430px;
+  margin-top: 170px;
+  margin-inline: 100px;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: none;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.button {
+  width: 350px;
+  height: 44px;
+  margin-top: 30px;
+  color: var(--white);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-btn-1);
+  background-color: var(--brown-light);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.forgotPasswordLink {
+  color: var(--brown-light);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: right;
+  text-decoration: none;
+}
+
+.errorMessage {
+  height: 30px;
+  margin: 0;
+  color: var(--red-1);
+  font-size: 11px;
+}
+
+.signUpText {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: var(--font-family-lato);
+  text-align: center;
+}
+
+.signUpLink {
+  color: var(--brown-light);
+  text-decoration: none;
+}
+
+.input {
+  height: 48px;
+  margin-bottom: 10px;
+  padding: 14px 20px;
+  background-color: var(--grey-1);
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--dark-blue);
+  font-weight: 400;
+  font-size: 14px;
+  font-family: var(--font-family-lato);
+  opacity: 0.5;
+}
+
+@media screen and (width <= 800px) {
+  .form {
+    margin: 0 auto;
+  }
+}

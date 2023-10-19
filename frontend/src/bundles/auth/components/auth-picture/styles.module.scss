@@ -1,0 +1,14 @@
+.picture {
+  width: 60vw;
+  height: 943px;
+  background-image: url("../../../../assets/img/auth-background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@media screen and (width <= 800px) {
+  .picture {
+    display: none;
+  }
+}

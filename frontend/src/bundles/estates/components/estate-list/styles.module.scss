@@ -1,0 +1,32 @@
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.estateList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 630px));
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.title {
+  color: var(--brown-light);
+  font-weight: 700;
+  font-size: 28px;
+}
+
+@media screen and (width <=1300px) {
+  .wrapper {
+    max-width: 630px;
+  }
+}
+
+@media screen and (width <=635px) {
+  .wrapper {
+    margin-inline: 5px;
+  }
+}

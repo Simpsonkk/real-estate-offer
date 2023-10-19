@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 18px;
+  background-color: var(--dark-blue);
+}
+
+.button {
+  width: 160px;
+  height: 44px;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-btn-1);
+  border: 1px solid var(--brown-light);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logInButton {
+  margin-right: 10px;
+  color: var(--brown-light);
+  background-color: transparent;
+}
+
+.signUpButton {
+  margin-right: 62px;
+  color: var(--white);
+  background-color: var(--brown-light);
+}
+
+@media screen and (width <=700px) {
+  .signUpButton {
+    margin-right: 0;
+  }
+
+  .header {
+    justify-content: center;
+  }
+}
