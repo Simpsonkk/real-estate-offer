@@ -57,10 +57,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
               },
             ],
           },
-          {
-            path: AppRoute.NOT_FOUND,
-            element: '',
-          },
         ]}
       />
     </StoreProvider>
