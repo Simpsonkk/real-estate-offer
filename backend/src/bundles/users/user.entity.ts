@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -17,12 +17,20 @@ export class User {
   @Column({ type: 'text', nullable: false })
   password: string;
 
-  @Column({ type: 'character varying', nullable: false })
+  @Column({ type: 'character varying', nullable: false, name: 'full_name' })
   fullName: string;
 
-  @CreateDateColumn({ type: 'timestamp with time zone', select: false })
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
+    name: 'created_at',
+    select: false,
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', select: false })
+  @UpdateDateColumn({
+    type: 'timestamp with time zone',
+    name: 'updated_at',
+    select: false,
+  })
   updatedAt: Date;
 }

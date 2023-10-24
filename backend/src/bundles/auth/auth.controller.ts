@@ -3,16 +3,19 @@ import {
   Post,
   Body,
   Get,
-  Headers,
   UsePipes,
   ValidationPipe,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserSignUpRequestDto } from './dto/user-sign-up-request-dto';
-import { UserSignInRequestDto } from './dto/user-sign-in-request-dto';
+import { UserSignUpRequestDto } from './types/user-sign-up-request-dto';
+import { UserSignInRequestDto } from './types/user-sign-in-request-dto';
 import { ApiPath } from 'src/common/enums/api-path.enum';
 import { AuthApiPath } from './enums/auth-api-path.enum';
-import { AUTH_HEADER } from './constants/constants';
+import { JwtGuard } from './guards/guards';
+import { GetUser } from './decorators/get-user.decorator';
+import { User } from '../users/user.entity';
 
 @Controller(ApiPath.AUTH)
 export class AuthController {
@@ -30,8 +33,9 @@ export class AuthController {
     return this.authService.verifyLoginCredentials(user);
   }
 
+  @UseGuards(JwtGuard)
   @Get(AuthApiPath.CURRENT_USER)
-  async getCurrentUser(@Headers(AUTH_HEADER) token: string) {
-    return this.authService.getCurrentUser(token);
+  async getCurrentUser(@GetUser() user: User) {
+    return user;
   }
 }

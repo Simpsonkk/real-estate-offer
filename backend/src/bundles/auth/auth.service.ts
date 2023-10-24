@@ -1,11 +1,11 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { UserService } from '../users/user.service';
 import { ErrorMessage } from 'src/common/enums/enums';
-import { UserGetResponseDto, UserSignUpRequestDto } from './dto/dto';
+import { UserSignUpRequestDto } from './types/types';
 import { JwtService } from '@nestjs/jwt';
-import { UserSignUpResponseDto } from './dto/dto';
-import { UserSignInRequestDto } from './dto/dto';
-import { UserSignInResponseDto } from './dto/dto';
+import { UserSignUpResponseDto } from './types/types';
+import { UserSignInRequestDto } from './types/types';
+import { UserSignInResponseDto } from './types/types';
 import { compare } from 'bcrypt';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class AuthService {
 
     return {
       ...user,
-      token: this.jwtService.sign({ id }),
+      token: await this.jwtService.signAsync({ id }),
     };
   }
 
@@ -62,40 +62,11 @@ export class AuthService {
     }
 
     const { id, email, fullName } = user;
+
     return {
       email,
       fullName,
-      token: this.jwtService.sign({ id }),
+      token: await this.jwtService.signAsync({ id }),
     };
-  }
-
-  async getCurrentUser(authHeader: string): Promise<UserGetResponseDto> {
-    const [, token] = authHeader.split(' ');
-
-    if (!token) {
-      throw new HttpException(
-        ErrorMessage.INVALID_TOKEN,
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
-
-    try {
-      const { id } = await this.jwtService.verifyAsync(token);
-      const user = await this.userService.findById(id);
-
-      if (!user) {
-        throw new HttpException(
-          ErrorMessage.USER_NOT_FOUND,
-          HttpStatus.NOT_FOUND,
-        );
-      }
-
-      return user;
-    } catch (error) {
-      throw new HttpException(
-        ErrorMessage.TOKEN_INVALID_OR_EXPIRED,
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
   }
 }

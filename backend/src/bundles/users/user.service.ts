@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { hash } from 'bcrypt';
-import { UserSignUpRequestDto } from '../auth/dto/dto';
-import { UserCreateResponseDto } from '../auth/dto/dto';
+import { UserSignUpRequestDto } from '../auth/types/types';
+import { UserCreateResponseDto } from '../auth/types/types';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly configService: ConfigService,
   ) {}
 
-  async findByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.findOne({
-      where: { email },
-    });
+  findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findOneBy({ email });
   }
 
-  async findById(id: string): Promise<User | undefined> {
+  findById(id: string): Promise<User | null> {
     return this.userRepository.findOne({
       where: { id },
       select: ['email', 'fullName'],
@@ -28,7 +28,9 @@ export class UserService {
 
   async create(payload: UserSignUpRequestDto): Promise<UserCreateResponseDto> {
     const { password: userPassword, ...rest } = payload;
-    const passwordHash = await hash(userPassword, 10);
+
+    const hashSalt = this.configService.get('PASSWORD_SALT_ROUNDS');
+    const passwordHash = await hash(userPassword, +hashSalt);
 
     const user = await this.userRepository.save({
       ...rest,

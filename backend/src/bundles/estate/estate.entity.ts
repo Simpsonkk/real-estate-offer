@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('estates')
 export class Estate {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -26,15 +26,23 @@ export class Estate {
   @Column({ type: 'numeric', nullable: false })
   yield: number;
 
-  @Column({ type: 'integer', nullable: false })
+  @Column({ type: 'integer', nullable: false, name: 'days_left' })
   daysLeft: number;
 
   @Column({ type: 'numeric', nullable: false })
   sold: number;
 
-  @CreateDateColumn({ type: 'timestamp with time zone', select: false })
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
+    name: 'created_at',
+    select: false,
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', select: false })
+  @UpdateDateColumn({
+    type: 'timestamp with time zone',
+    name: 'updated_at',
+    select: false,
+  })
   updatedAt: Date;
 }
